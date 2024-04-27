@@ -9,10 +9,12 @@
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.43.1",
-    "@types/node": "^20.12.7"
+    "@types/node": "^20.12.7",
+    "allure-playwright": "^2.15.1"
   },
   "dependencies": {
     "@faker-js/faker": "^8.4.1",
+    "allure-commandline": "^2.29.0",
     "dotenv": "^16.4.5",
     "luxon": "^3.4.4"
   }
