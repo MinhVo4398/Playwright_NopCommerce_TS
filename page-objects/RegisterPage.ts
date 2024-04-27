@@ -15,6 +15,7 @@ export class RegisterPage extends BasePage {
   private readonly emailInlineErrorMessage: Locator;
   private readonly passwordInlineErrorMessage: Locator;
   private readonly confirmPasswordInlineErrorMessage: Locator;
+  private readonly registerCompleteSuccessMessage: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -32,11 +33,12 @@ export class RegisterPage extends BasePage {
     this.confirmPasswordInlineErrorMessage = page.locator(
       "#ConfirmPassword-error"
     );
+    this.registerCompleteSuccessMessage = page.locator("div[class='result']");
   }
 
   async clickRegisterButton() {
     await this.registerButton.waitFor();
-   await this.registerButton.click();
+    await this.registerButton.click();
   }
 
   async verifyMessage() {
@@ -79,5 +81,9 @@ export class RegisterPage extends BasePage {
     await this.companyNameInput.fill(companyName);
     await this.passwordInput.fill(password);
     await this.confirmPasswordInout.fill(confirmPassword);
+  }
+
+  async verifyRegisterSuccessMessage(message: string) {
+    expect(await this.registerCompleteSuccessMessage.textContent()).toContain(message);
   }
 }

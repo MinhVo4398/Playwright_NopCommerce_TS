@@ -33,9 +33,11 @@ test.describe("Register Function", () => {
     let firstName = faker.internet.userName();
     let lastName = faker.internet.displayName();
     let email = faker.internet.email();
+    console.log(email);
     let companyName = 'ABC Testing Company';
     let password = '123456789'
     await registerPage.inputValidIfo(firstName, lastName, email,companyName, password, password);
     await registerPage.clickRegisterButton();
+    await registerPage.verifyRegisterSuccessMessage('Your registration completed');
   });
 });
