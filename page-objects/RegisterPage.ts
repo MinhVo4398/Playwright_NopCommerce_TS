@@ -16,6 +16,7 @@ export class RegisterPage extends BasePage {
   private readonly passwordInlineErrorMessage: Locator;
   private readonly confirmPasswordInlineErrorMessage: Locator;
   private readonly registerCompleteSuccessMessage: Locator;
+  private readonly existingErrorEmailMessage: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -34,6 +35,9 @@ export class RegisterPage extends BasePage {
       "#ConfirmPassword-error"
     );
     this.registerCompleteSuccessMessage = page.locator("div[class='result']");
+    this.existingErrorEmailMessage = page.locator(
+      ".message-error.validation-summary-errors"
+    );
   }
 
   async clickRegisterButton() {
@@ -67,7 +71,13 @@ export class RegisterPage extends BasePage {
     expect(await this.emailInlineErrorMessage.textContent()).toContain(message);
   }
 
-  async inputValidIfo(
+  async verifyExistingErrorEmailMessage(message: string) {
+    expect(await this.existingErrorEmailMessage.textContent()).toContain(
+      message
+    );
+  }
+
+  async inputInfoField(
     firstName: string,
     lastName: string,
     email: string,
@@ -84,6 +94,18 @@ export class RegisterPage extends BasePage {
   }
 
   async verifyRegisterSuccessMessage(message: string) {
-    expect(await this.registerCompleteSuccessMessage.textContent()).toContain(message);
+    expect(await this.registerCompleteSuccessMessage.textContent()).toContain(
+      message
+    );
+  }
+
+  async verifyPasswordLessThan6CharsMessage(message: string) {
+    expect(await this.passwordInlineErrorMessage.textContent()).toContain(
+      message
+    );
+  }
+
+  async verifyConfirmPasswordError(message: string) {
+    expect(await this.confirmPasswordInlineErrorMessage.textContent()).toContain(message);
   }
 }
