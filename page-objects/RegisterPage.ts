@@ -35,7 +35,8 @@ export class RegisterPage extends BasePage {
   }
 
   async clickRegisterButton() {
-    this.clickElement(this.registerButton);
+    await this.registerButton.waitFor();
+   await this.registerButton.click();
   }
 
   async verifyMessage() {
@@ -54,5 +55,29 @@ export class RegisterPage extends BasePage {
     expect(
       await this.confirmPasswordInlineErrorMessage.textContent()
     ).toContain("Password is required.");
+  }
+
+  async inputEmailField(email: string) {
+    await this.emailInput.fill(email);
+  }
+
+  async verifyWrongEmailMessage(message: string) {
+    expect(await this.emailInlineErrorMessage.textContent()).toContain(message);
+  }
+
+  async inputValidIfo(
+    firstName: string,
+    lastName: string,
+    email: string,
+    companyName: string,
+    password: string,
+    confirmPassword: string
+  ) {
+    await this.firstNameInput.fill(firstName);
+    await this.lastNameInput.fill(lastName);
+    await this.emailInput.fill(email);
+    await this.companyNameInput.fill(companyName);
+    await this.passwordInput.fill(password);
+    await this.confirmPasswordInout.fill(confirmPassword);
   }
 }
