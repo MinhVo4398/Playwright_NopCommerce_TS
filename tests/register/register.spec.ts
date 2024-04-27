@@ -28,7 +28,7 @@ test.describe("Register Function", () => {
     await registerPage.verifyWrongEmailMessage("Wrong email");
   });
 
-  test("TC03 - Register with vadlid info", async ({ page }) => {
+  test("TC03 - Register with valid info", async ({ page }) => {
     const registerPage = new RegisterPage(page);
     let firstName = faker.internet.userName();
     let lastName = faker.internet.displayName();
