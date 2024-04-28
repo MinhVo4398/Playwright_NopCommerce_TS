@@ -3,7 +3,7 @@ import { fa, faker } from "@faker-js/faker";
 import { HomePage } from "../../page-objects/HomePage";
 import { RegisterPage } from "../../page-objects/RegisterPage";
 
-test.describe("Register Function", () => {
+test.describe("Register Function @register", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/");
 

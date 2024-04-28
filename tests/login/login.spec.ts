@@ -4,7 +4,8 @@ import { HomePage } from "../../page-objects/HomePage";
 import { RegisterPage } from "../../page-objects/RegisterPage";
 import { LoginPage } from "../../page-objects/LoginPage";
 
-test.describe("Login Function", () => {
+test.describe("Login Function @login", () => {
+  tag: "@login";
   test.beforeEach(async ({ page }) => {
     const homePage = new HomePage(page);
     await page.goto("/");
@@ -84,6 +85,7 @@ test.describe("Login Function", () => {
     const registerPage = new RegisterPage(page);
     const homePage = new HomePage(page);
     const loginPage = new LoginPage(page);
+    
     // Pre-condition: Register email
     homePage.clickToRegisterLink();
     let firstName = faker.internet.userName();
