@@ -2,6 +2,7 @@ import { expect, test } from "@playwright/test";
 import { fa, faker } from "@faker-js/faker";
 import { HomePage } from "../../page-objects/HomePage";
 import { RegisterPage } from "../../page-objects/RegisterPage";
+import { LoginPage } from "../../page-objects/LoginPage";
 
 test.describe("Login Function", () => {
   test.beforeEach(async ({ page }) => {
@@ -12,26 +13,30 @@ test.describe("Login Function", () => {
   });
   test("TC01 - Login with empty data", async ({ page }) => {
     const homePage = new HomePage(page);
-    await homePage.clickLoginBtn();
-    await homePage.verifyEnterEmailMessageDisplayed("Please enter your email");
+    const loginPage = new LoginPage(page);
+    await loginPage.clickLoginBtn();
+    await loginPage.verifyEnterEmailMessageDisplayed("Please enter your email");
   });
 
   test("TC02 - Login with invalid email", async ({ page }) => {
     const homePage = new HomePage(page);
+    const loginPage = new LoginPage(page);
+
     let invalidEmail = "minh1122";
-    await homePage.inputEmailField(invalidEmail);
-    await homePage.clickLoginBtn();
-    await homePage.verifyEnterEmailMessageDisplayed("Wrong email");
+    await loginPage.inputEmailField(invalidEmail);
+    await loginPage.clickLoginBtn();
+    await loginPage.verifyEnterEmailMessageDisplayed("Wrong email");
   });
 
   test("TC03 - Login with email is not register", async ({ page }) => {
     const homePage = new HomePage(page);
+    const loginPage = new LoginPage(page);
     let email = "minh1122@gmail.com";
     let password = "123456";
-    await homePage.inputEmailField(email);
-    await homePage.inputPasswordField(password);
-    await homePage.clickLoginBtn();
-    await homePage.verifyErrorMessageDisplayed(
+    await loginPage.inputEmailField(email);
+    await loginPage.inputPasswordField(password);
+    await loginPage.clickLoginBtn();
+    await loginPage.verifyErrorMessageDisplayed(
       "Login was unsuccessful. Please correct the errors and try again."
     );
   });
@@ -41,6 +46,8 @@ test.describe("Login Function", () => {
   }) => {
     const registerPage = new RegisterPage(page);
     const homePage = new HomePage(page);
+    const loginPage = new LoginPage(page);
+
     // Pre-condition: Register email
     homePage.clickToRegisterLink();
     let firstName = faker.internet.userName();
@@ -63,10 +70,10 @@ test.describe("Login Function", () => {
     );
 
     homePage.clickLoginLink();
-    await homePage.inputEmailField(email);
-    await homePage.inputPasswordField("");
-    await homePage.clickLoginBtn();
-    await homePage.verifyErrorMessageDisplayed(
+    await loginPage.inputEmailField(email);
+    await loginPage.inputPasswordField("");
+    await loginPage.clickLoginBtn();
+    await loginPage.verifyErrorMessageDisplayed(
       "Login was unsuccessful. Please correct the errors and try again.The credentials provided are incorrect"
     );
   });
@@ -76,6 +83,7 @@ test.describe("Login Function", () => {
   }) => {
     const registerPage = new RegisterPage(page);
     const homePage = new HomePage(page);
+    const loginPage = new LoginPage(page);
     // Pre-condition: Register email
     homePage.clickToRegisterLink();
     let firstName = faker.internet.userName();
@@ -98,10 +106,10 @@ test.describe("Login Function", () => {
     );
 
     homePage.clickLoginLink();
-    await homePage.inputEmailField(email);
-    await homePage.inputPasswordField("1234");
-    await homePage.clickLoginBtn();
-    await homePage.verifyErrorMessageDisplayed(
+    await loginPage.inputEmailField(email);
+    await loginPage.inputPasswordField("1234");
+    await loginPage.clickLoginBtn();
+    await loginPage.verifyErrorMessageDisplayed(
       "Login was unsuccessful. Please correct the errors and try again.The credentials provided are incorrect"
     );
   });
@@ -111,6 +119,7 @@ test.describe("Login Function", () => {
   }) => {
     const registerPage = new RegisterPage(page);
     const homePage = new HomePage(page);
+    const loginPage = new LoginPage(page);
     // Pre-condition: Register email
     homePage.clickToRegisterLink();
     let firstName = faker.internet.userName();
@@ -133,9 +142,9 @@ test.describe("Login Function", () => {
     );
 
     homePage.clickLoginLink();
-    await homePage.inputEmailField(email);
-    await homePage.inputPasswordField("1234");
-    await homePage.clickLoginBtn();
-    
+    await loginPage.inputEmailField(email);
+    await loginPage.inputPasswordField(password);
+    await loginPage.clickLoginBtn();
+    await homePage.verifyImageDisplayed();
   });
 });
