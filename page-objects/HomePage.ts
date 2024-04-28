@@ -14,7 +14,7 @@ export class HomePage extends BasePage {
     this.logoImage = page.locator("img[alt='nopCommerce demo store']");
     this.registerLink = page.getByRole("link", { name: "Register" });
     this.loginLink = page.getByRole("link", { name: "Log in" });
-    this.myAccountLink = page.locator('.ico-account');
+    this.myAccountLink = page.locator(".ico-account");
   }
 
   async verifyImageDisplayed() {
@@ -30,6 +30,7 @@ export class HomePage extends BasePage {
   }
 
   async clickMyAccountLink() {
+    await this.myAccountLink.waitFor();
     await this.myAccountLink.click();
   }
 }

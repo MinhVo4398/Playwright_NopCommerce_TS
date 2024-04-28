@@ -9,6 +9,8 @@ export class CustomerInfoPage extends BasePage {
   private readonly email: Locator;
   private readonly companyName: Locator;
   private readonly saveButton: Locator;
+  private readonly addressLink: Locator;
+  private readonly customerInfoSuccessMessage: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -17,6 +19,8 @@ export class CustomerInfoPage extends BasePage {
     this.email = page.locator("#Email");
     this.companyName = page.locator("#Company");
     this.saveButton = page.getByRole("button", { name: "Save" });
+    this.addressLink = page.getByRole("link", { name: "Addresses" });
+    this.customerInfoSuccessMessage = page.locator(".content");
   }
 
   async updateCustomerInfo(
@@ -30,5 +34,15 @@ export class CustomerInfoPage extends BasePage {
     await this.email.fill(email);
     await this.companyName.fill(companyName);
     await this.saveButton.click();
+  }
+
+  async clickAddressLink() {
+    await this.addressLink.first().click({ force: true });
+  }
+
+  async verifyUpdateSuccessMessageDisplayed(message) {
+    expect(await this.customerInfoSuccessMessage.textContent()).toContain(
+      message
+    );
   }
 }
