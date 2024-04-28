@@ -88,6 +88,17 @@ test("TC02 - Add New Address ", async ({}) => {
     data.faxNumber
   );
   await addressPage.verifySuccessMessage();
+  const cityStateZip = `${data.city}, ${data.state}, ${data.zipCode}`;
+  await addressPage.verifyInfoAfterAddNewAddress(
+    data.email,
+    data.phoneNumber,
+    data.faxNumber,
+    data.company,
+    data.address1,
+    data.address2,
+    cityStateZip,
+    data.country
+  );
 });
 
 test.afterAll(async () => {

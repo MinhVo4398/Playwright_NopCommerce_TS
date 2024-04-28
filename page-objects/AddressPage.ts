@@ -20,6 +20,14 @@ export class AddressPage extends BasePage {
   private readonly phoneNumber: Locator;
   private readonly faxNumber: Locator;
   private readonly successMessage: Locator;
+  private readonly emailAddress: Locator;
+  private readonly phoneNumberAddress: Locator;
+  private readonly faxNumberAddress: Locator;
+  private readonly companyAddress: Locator;
+  private readonly address1Address: Locator;
+  private readonly address2Address: Locator;
+  private readonly cityStateZipAddress: Locator;
+  private readonly countryAddress: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -41,6 +49,14 @@ export class AddressPage extends BasePage {
     this.phoneNumber = page.locator("#Address_PhoneNumber");
     this.faxNumber = page.locator("#Address_FaxNumber");
     this.successMessage = page.locator(".content");
+    this.emailAddress = page.locator(".email");
+    this.phoneNumberAddress = page.locator(".phone");
+    this.faxNumberAddress = page.locator(".fax");
+    this.companyAddress = page.locator(".company");
+    this.address1Address = page.locator(".address1");
+    this.address2Address = page.locator(".address2");
+    this.cityStateZipAddress = page.locator(".city-state-zip");
+    this.countryAddress = page.locator(".country");
   }
 
   async verifyHeadingTitleDisplayed() {
@@ -79,10 +95,30 @@ export class AddressPage extends BasePage {
     await this.zipCode.fill(zipCode);
     await this.phoneNumber.fill(phoneNumber);
     await this.faxNumber.fill(faxNumber);
-    await this.saveButton.click();
+    await this.clickElement(this.saveButton);
   }
 
   async verifySuccessMessage() {
     await this.successMessage.waitFor();
+  }
+
+  async verifyInfoAfterAddNewAddress(
+    email: string,
+    phoneNumber: string,
+    taxNumber: string,
+    company: string,
+    address1: string,
+    address2: string,
+    cityStateZipAddress: string,
+    country:string
+  ) {
+    expect(await this.emailAddress.textContent()).toContain(email);
+    expect(await this.phoneNumberAddress.textContent()).toContain(phoneNumber);
+    expect(await this.faxNumberAddress.textContent()).toContain(taxNumber);
+    expect(await this.companyAddress.textContent()).toContain(company);
+    expect(await this.address1Address.textContent()).toContain(address1);
+    expect(await this.address2Address.textContent()).toContain(address2);
+    expect(await this.cityStateZipAddress.textContent()).toContain(cityStateZipAddress);
+    expect(await this.countryAddress.textContent()).toContain(country);
   }
 }
