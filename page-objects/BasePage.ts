@@ -2,11 +2,16 @@ import { Locator, Page } from "@playwright/test";
 
 export default class BasePage {
   public readonly page: Page;
+  public readonly changePasswordLink: Locator;
 
   constructor(page: Page) {
     this.page = page;
+    this.changePasswordLink = page.getByRole("link", {name:"Change password"});
   }
 
+  async clickChangePasswordLink() {
+    await this.changePasswordLink.click();
+  }
   //Common method to navigate to a URL
   async navigateTo(url: string) {
     await this.page.goto(url);
@@ -44,7 +49,7 @@ export default class BasePage {
       await element.waitFor({ state: "hidden" });
     }
   }
-  
+
   //Common method to take screenshot
   async takeScreenshot(fileName: string) {
     await this.page.screenshot({ path: fileName });

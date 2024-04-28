@@ -28,6 +28,7 @@ export class AddressPage extends BasePage {
   private readonly address2Address: Locator;
   private readonly cityStateZipAddress: Locator;
   private readonly countryAddress: Locator;
+  
 
   constructor(page: Page) {
     super(page);
@@ -110,7 +111,7 @@ export class AddressPage extends BasePage {
     address1: string,
     address2: string,
     cityStateZipAddress: string,
-    country:string
+    country: string
   ) {
     expect(await this.emailAddress.textContent()).toContain(email);
     expect(await this.phoneNumberAddress.textContent()).toContain(phoneNumber);
@@ -118,7 +119,9 @@ export class AddressPage extends BasePage {
     expect(await this.companyAddress.textContent()).toContain(company);
     expect(await this.address1Address.textContent()).toContain(address1);
     expect(await this.address2Address.textContent()).toContain(address2);
-    expect(await this.cityStateZipAddress.textContent()).toContain(cityStateZipAddress);
+    expect(await this.cityStateZipAddress.textContent()).toContain(
+      cityStateZipAddress
+    );
     expect(await this.countryAddress.textContent()).toContain(country);
   }
 }

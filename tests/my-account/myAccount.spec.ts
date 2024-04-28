@@ -8,9 +8,14 @@ import { updateCustomerInfo } from "../../data/updateCustomerInfo";
 import { AddressPage } from "../../page-objects/AddressPage";
 import { CommonFunction } from "../../utils/commonFunction.ts";
 import data from "../../data/addNewAddress.json";
+import { ChangePasswordPage } from "../../page-objects/ChangePasswordPage.ts";
 
 test.describe.configure({ mode: "serial" });
 let page: Page;
+let companyName = "ABC Testing Company";
+const password = "123456789";
+const newPassword = "123456";
+const confirmPassword = "123456";
 test.beforeAll(async ({ browser }) => {
   page = await browser.newPage();
   await page.goto("/");
@@ -28,8 +33,7 @@ test.beforeAll(async ({ browser }) => {
   let lastName = faker.internet.displayName();
   let email = faker.internet.email();
   console.log(email);
-  let companyName = "ABC Testing Company";
-  let password = "123456789";
+
   await registerPage.inputInfoField(
     firstName,
     lastName,
@@ -55,6 +59,7 @@ test("T01 - Update Customer Info", async ({}) => {
   const homePage = new HomePage(page);
   await homePage.clickMyAccountLink();
   let updatedEmail = faker.internet.email();
+  console.log("Updated email: " + updatedEmail);
   await customerInfoPage.updateCustomerInfo(
     updateCustomerInfo.firstName,
     updateCustomerInfo.lastName,
@@ -99,6 +104,19 @@ test("TC02 - Add New Address ", async ({}) => {
     cityStateZip,
     data.country
   );
+});
+
+test("TC03 - Change Password", async ({}) => {
+  const addressPage = new AddressPage(page);
+  const changePasswordPage = new ChangePasswordPage(page);
+  await addressPage.clickChangePasswordLink();
+  expect(page).toHaveURL(/\/changepassword/);
+  await changePasswordPage.changePassword(
+    password,
+    newPassword,
+    confirmPassword
+  );
+  await changePasswordPage.verifySuccessMessage();
 });
 
 test.afterAll(async () => {
