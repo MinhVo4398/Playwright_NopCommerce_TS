@@ -9,6 +9,7 @@ export class ChangePasswordPage extends BasePage {
   readonly confirmPasswordInput: Locator;
   readonly changePasswordButton: Locator;
   readonly successMessage: Locator;
+  readonly closeIcon: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -19,6 +20,7 @@ export class ChangePasswordPage extends BasePage {
       name: "Change password",
     });
     this.successMessage = page.getByText('Password was changed');
+    this.closeIcon = page.locator('.close');
   }
 
   async changePassword(
@@ -34,6 +36,10 @@ export class ChangePasswordPage extends BasePage {
 
   async verifySuccessMessage() {
     await expect(this.successMessage).toBeVisible();
+  }
+
+  async clickCloseIcon() {
+    await this.clickElement(this.closeIcon);
   }
 
 }

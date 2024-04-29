@@ -3,14 +3,22 @@ import { Locator, Page } from "@playwright/test";
 export default class BasePage {
   public readonly page: Page;
   public readonly changePasswordLink: Locator;
+  public readonly logOutLink: Locator;
 
   constructor(page: Page) {
     this.page = page;
-    this.changePasswordLink = page.getByRole("link", {name:"Change password"});
+    this.changePasswordLink = page.getByRole("link", {
+      name: "Change password",
+    });
+    this.logOutLink = page.getByRole('link', { name: 'Log out' });
   }
 
   async clickChangePasswordLink() {
     await this.changePasswordLink.click();
+  }
+
+  async clickLogoutLink() {
+    await this.logOutLink.click();
   }
   //Common method to navigate to a URL
   async navigateTo(url: string) {

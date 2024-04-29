@@ -8,6 +8,7 @@ export class HomePage extends BasePage {
   private readonly registerLink: Locator;
   private readonly loginLink: Locator;
   private readonly myAccountLink: Locator;
+  private readonly product:Locator;
 
   constructor(page: Page) {
     super(page);
@@ -15,6 +16,7 @@ export class HomePage extends BasePage {
     this.registerLink = page.getByRole("link", { name: "Register" });
     this.loginLink = page.getByRole("link", { name: "Log in" });
     this.myAccountLink = page.locator(".ico-account");
+    this.product = page.getByRole('link', { name: 'Build your own computer', exact: true });
   }
 
   async verifyImageDisplayed() {
@@ -32,5 +34,14 @@ export class HomePage extends BasePage {
   async clickMyAccountLink() {
     await this.myAccountLink.waitFor();
     await this.myAccountLink.click();
+  }
+
+  async clickToSpecificProduct(productName: string) {
+    await this.page.getByRole("link", { name: productName, exact: true }).waitFor();
+    await this.page.getByRole("link", { name: productName , exact: true}).click();
+  }
+
+  async clickProduct() {
+    await this.product.click();
   }
 }
