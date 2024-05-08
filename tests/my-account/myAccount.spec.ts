@@ -51,7 +51,7 @@ test.beforeAll(async ({ browser }) => {
     "Your registration completed"
   );
 
-  homePage.clickLoginLink();
+  await homePage.clickLoginLink();
   await loginPage.inputEmailField(email);
   await loginPage.inputPasswordField(password);
   await loginPage.clickLoginBtn();
@@ -144,7 +144,9 @@ test("TC03 - Change Password", async ({}) => {
 test("TC04 - My product review ", async ({}) => {
   const homePage = new HomePage(page);
   const productPage = new ProductPage(page);
-  await homePage.clickProduct();
+   await homePage.clickToSpecificProduct('Build your own computer');
+ // await homePage.clickProduct();
+ await page.pause();
   await productPage.addReviews(reviewTitle, reviewText);
   await productPage.verifySuccessMessage();
   await productPage.verifyTitleAndReviewText(reviewTitle.trim(),reviewText.trim())

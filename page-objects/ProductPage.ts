@@ -3,7 +3,6 @@ import BasePage from "./BasePage";
 import { CommonFunction } from "../utils/commonFunction.ts";
 
 export class ProductPage extends BasePage {
-  
   readonly page: Page;
   readonly expect: Expect;
   private readonly addYourReviewsLink: Locator;
@@ -31,7 +30,7 @@ export class ProductPage extends BasePage {
     this.reviewText = page.locator(".review-text");
   }
 
-  async addReviews(reviewTitle:string, reviewText:string) {
+  async addReviews(reviewTitle: string, reviewText: string) {
     await this.addYourReviewsLink.click();
 
     await this.reviewTitleInput.fill(reviewTitle);
@@ -43,8 +42,12 @@ export class ProductPage extends BasePage {
     expect(this.productReviewSuccessMessage).toBeVisible();
   }
 
-  async verifyTitleAndReviewText(reviewTitle:string, reviewText: string) {
-    expect(await this.reviewTitle.first().textContent()).toContain(reviewTitle.trim())
-    expect(await this.reviewText.first().textContent()).toContain(reviewText.trim());
+  async verifyTitleAndReviewText(reviewTitle: string, reviewText: string) {
+    expect(await this.reviewTitle.first().textContent()).toContain(
+      reviewTitle.trim()
+    );
+    expect(await this.reviewText.first().textContent()).toContain(
+      reviewText.trim()
+    );
   }
 }
